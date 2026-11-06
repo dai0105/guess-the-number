@@ -1,0 +1,807 @@
+/* ========================================
+   RESET / BASE
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #050b14;
+    --panel: #0b1726;
+    --panel-light: #102238;
+
+    --border: #1d4962;
+    --border-bright: #32d9f5;
+
+    --text: #edfaff;
+    --text-sub: #8ca6b8;
+
+    --cyan: #4de9ff;
+    --blue: #269cff;
+    --green: #3df2a4;
+    --yellow: #ffd166;
+    --red: #ff5d73;
+
+    --radius: 18px;
+}
+
+html {
+    min-height: 100%;
+
+    color: var(--text);
+    background: var(--bg);
+
+    font-family:
+        "Segoe UI",
+        "Noto Sans JP",
+        system-ui,
+        sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at top center,
+            #173650 0%,
+            #091522 38%,
+            #050b14 75%
+        );
+}
+
+button {
+    font: inherit;
+}
+
+
+/* ========================================
+   PAGE
+======================================== */
+
+main {
+    width: min(100% - 32px, 620px);
+
+    margin: 0 auto;
+    padding: 48px 0 64px;
+}
+
+section[hidden] {
+    display: none;
+}
+
+
+/* ========================================
+   COMMON
+======================================== */
+
+#title-screen,
+#game-screen,
+#result-screen {
+    animation: screen-in 0.35s ease-out;
+}
+
+#title-screen > header,
+#game-screen > header,
+#result-screen > header {
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+header > p:first-child {
+    margin: 0 0 10px;
+
+    color: var(--cyan);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+}
+
+h1,
+h2,
+h3,
+p {
+    overflow-wrap: break-word;
+}
+
+h1 {
+    margin: 0 0 16px;
+
+    font-size: clamp(28px, 7vw, 42px);
+    line-height: 1.3;
+
+    text-shadow:
+        0 0 30px rgba(77, 233, 255, 0.2);
+}
+
+h2 {
+    margin: 0 0 14px;
+
+    font-size: clamp(24px, 6vw, 34px);
+}
+
+h3 {
+    margin-top: 0;
+
+    color: var(--text-sub);
+
+    font-size: 13px;
+    letter-spacing: 0.15em;
+}
+
+header > p:last-child {
+    margin-bottom: 0;
+
+    color: var(--text-sub);
+
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   TITLE SCREEN
+======================================== */
+
+#title-screen > section {
+    margin-bottom: 20px;
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16, 34, 56, 0.96),
+            rgba(7, 20, 34, 0.96)
+        );
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.25);
+}
+
+#title-screen > section > p {
+    color: #b7c9d5;
+
+    line-height: 1.8;
+}
+
+#title-screen strong {
+    color: var(--cyan);
+}
+
+
+/* ========================================
+   BEST SCORE
+======================================== */
+
+#title-screen > section:first-of-type {
+    text-align: center;
+}
+
+#best-score {
+    margin-top: 10px;
+
+    text-align: center;
+
+    color: var(--yellow);
+
+    font-size: 30px;
+    font-weight: 900;
+
+    letter-spacing: 0.05em;
+
+    text-shadow:
+        0 0 22px rgba(255, 209, 102, 0.18);
+}
+
+/* ========================================
+   BUTTON BASE
+======================================== */
+
+button {
+    border: 0;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+}
+
+
+/* ========================================
+   PRIMARY BUTTON
+======================================== */
+
+#game-start-button,
+#retry-button {
+    width: 100%;
+
+    padding: 17px 24px;
+
+    color: #03131d;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--cyan),
+            var(--blue)
+        );
+
+    border-radius: 14px;
+
+    font-weight: 900;
+    letter-spacing: 0.06em;
+
+    box-shadow:
+        0 10px 30px rgba(38, 156, 255, 0.24);
+}
+
+#game-start-button:hover,
+#retry-button:hover {
+    box-shadow:
+        0 14px 38px rgba(77, 233, 255, 0.32);
+}
+
+
+/* ========================================
+   GAME STATUS
+======================================== */
+
+#game-status {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+#game-status > div {
+    padding: 18px;
+
+    text-align: center;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+#game-status p {
+    margin: 0 0 8px;
+
+    color: var(--text-sub);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+#game-status strong {
+    color: var(--cyan);
+
+    font-size: 26px;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ========================================
+   CODE INPUT
+======================================== */
+
+#code-input-area {
+    margin-bottom: 20px;
+    padding: 24px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            150deg,
+            rgba(16, 34, 56, 0.96),
+            rgba(7, 19, 32, 0.96)
+        );
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+}
+
+#code-input-area > p {
+    margin: 0 0 18px;
+
+    color: var(--text-sub);
+
+    font-size: 13px;
+
+    letter-spacing: 0.08em;
+}
+
+#code-display {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+}
+
+.code-digit {
+    display: grid;
+
+    width: 78px;
+    height: 88px;
+
+    place-items: center;
+
+    color: var(--cyan);
+
+    background: #050d17;
+
+    border: 1px solid #29657e;
+    border-radius: 14px;
+
+    font-size: 42px;
+    font-weight: 900;
+
+    font-variant-numeric: tabular-nums;
+
+    box-shadow:
+        inset 0 0 18px rgba(77, 233, 255, 0.05),
+        0 0 14px rgba(77, 233, 255, 0.04);
+}
+
+
+/* ========================================
+   KEYPAD
+======================================== */
+
+#number-keypad {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 24px;
+}
+
+#number-keypad button {
+    min-height: 62px;
+
+    color: var(--text);
+
+    background: #102235;
+
+    border: 1px solid #26536c;
+    border-radius: 12px;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+#number-keypad button:hover:not(:disabled) {
+    background: #16314a;
+
+    border-color: var(--cyan);
+
+    box-shadow:
+        0 0 18px rgba(77, 233, 255, 0.1);
+}
+
+#number-keypad button:disabled {
+    color: #607482;
+
+    background: #091522;
+
+    border-color: #172e3e;
+
+    cursor: not-allowed;
+
+    opacity: 0.55;
+}
+
+#delete-button {
+    color: var(--red) !important;
+}
+
+#submit-button:not(:disabled) {
+    color: #031913 !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green),
+            #28c98a
+        ) !important;
+
+    border-color: var(--green) !important;
+}
+
+
+/* ========================================
+   ANALYSIS LOG
+======================================== */
+
+#history-area {
+    padding: 20px;
+
+    background: rgba(7, 18, 31, 0.82);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+#history-empty {
+    margin: 12px 0;
+
+    color: #6f8798;
+
+    text-align: center;
+}
+
+#history-list {
+    display: grid;
+
+    gap: 10px;
+}
+
+.history-item {
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr auto;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 13px 14px;
+
+    background: #0d1e30;
+
+    border: 1px solid #1e4056;
+    border-radius: 10px;
+}
+
+.history-try {
+    color: #718b9c;
+
+    font-size: 12px;
+}
+
+.history-code {
+    color: #ffffff;
+
+    font-size: 20px;
+    letter-spacing: 0.14em;
+}
+
+
+/* ========================================
+   RESULT
+======================================== */
+
+#result-screen {
+    text-align: center;
+}
+
+#result-screen > section {
+    margin-bottom: 16px;
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16, 34, 56, 0.96),
+            rgba(7, 19, 32, 0.96)
+        );
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+#result-screen section > p:first-child {
+    margin: 0 0 8px;
+
+    color: var(--text-sub);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+
+/* ========================================
+   SECRET CODE RESULT
+======================================== */
+
+#answer-code {
+    color: var(--cyan);
+
+    font-size: clamp(42px, 12vw, 64px);
+    font-weight: 900;
+    letter-spacing: 0.22em;
+
+    text-indent: 0.22em;
+
+    text-shadow:
+        0 0 24px rgba(77, 233, 255, 0.25);
+}
+
+
+/* ========================================
+   RESULT STATS
+======================================== */
+
+#result-stats {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+#result-stats > div + div {
+    border-left:
+        1px solid var(--border);
+}
+
+#result-stats p {
+    margin-top: 0;
+
+    color: var(--text-sub);
+
+    font-size: 12px;
+}
+
+#result-stats strong {
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+
+/* ========================================
+   SCORE
+======================================== */
+
+#result-score {
+    color: var(--yellow);
+
+    font-size: clamp(42px, 12vw, 62px);
+    font-weight: 900;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    text-shadow:
+        0 0 25px rgba(255, 209, 102, 0.18);
+}
+
+
+/* ========================================
+   RANK
+======================================== */
+
+#result-rank {
+    color: var(--cyan);
+
+    font-size: 76px;
+    font-weight: 1000;
+
+    line-height: 1;
+
+    text-shadow:
+        0 0 28px rgba(77, 233, 255, 0.26);
+}
+
+#rank-message {
+    margin-bottom: 0;
+
+    color: var(--text-sub);
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+
+/* ========================================
+   RESULT BUTTON
+======================================== */
+
+#retry-button {
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+#back-title-button {
+    width: 100%;
+
+    padding: 15px 22px;
+
+    color: var(--text);
+
+    background: transparent;
+
+    border: 1px solid #34566c;
+    border-radius: 14px;
+
+    font-weight: 800;
+}
+
+#back-title-button:hover {
+    background: #102235;
+
+    border-color: var(--cyan);
+}
+
+
+/* ========================================
+   ANIMATION
+======================================== */
+
+@keyframes screen-in {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 520px) {
+
+    main {
+        width: min(100% - 24px, 620px);
+
+        padding:
+            30px 0 44px;
+    }
+
+    #title-screen > section,
+    #code-input-area,
+    #history-area,
+    #result-screen > section {
+        padding: 17px;
+    }
+
+    .code-digit {
+        width: 68px;
+        height: 78px;
+
+        font-size: 36px;
+    }
+
+    #number-keypad {
+        gap: 8px;
+    }
+
+    #number-keypad button {
+        min-height: 58px;
+    }
+
+    .history-item {
+        grid-template-columns:
+            auto 1fr;
+
+        gap: 7px 12px;
+    }
+
+    .history-result {
+        grid-column: 1 / -1;
+
+        justify-content: flex-start;
+
+        padding-left: 32px;
+    }
+
+
+    #result-rank {
+        font-size: 64px;
+    }
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 350px) {
+
+    .code-digit {
+        width: 60px;
+        height: 70px;
+    }
+
+    #game-status strong {
+        font-size: 21px;
+    }
+
+    #result-stats {
+        grid-template-columns: 1fr;
+    }
+
+    #result-stats > div + div {
+        padding-top: 14px;
+
+        border-top:
+            1px solid var(--border);
+
+        border-left: 0;
+    }
+}
+
+/* ========================================
+   HIT / BLOW
+======================================== */
+
+.history-result {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.hit-result {
+    color: var(--cyan);
+}
+
+.blow-result {
+    color: var(--yellow);
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #title-screen,
+    #game-screen,
+    #result-screen {
+        animation: none;
+    }
+
+    button {
+        transition: none;
+    }
+}

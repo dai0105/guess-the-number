@@ -1,0 +1,361 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>その数字、当てられる？</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'game/css/style.css' %}"
+    >
+</head>
+
+<body>
+
+    <main>
+
+        <!-- =========================
+             タイトル画面
+        ========================== -->
+        <section id="title-screen">
+
+            <header>
+
+                <p>
+                    NUMBER CODE GAME
+                </p>
+
+                <h1>
+                    🔐 その数字、当てられる？
+                </h1>
+
+                <p>
+                    3つの数字に隠された答えを、
+                    <br>
+                    ヒントから推理しよう。
+                </p>
+
+            </header>
+
+            <!-- BEST SCORE -->
+            <section>
+
+                <p>
+                    BEST SCORE
+                </p>
+
+                <div id="best-score">
+                    🏆 ---
+                </div>
+
+            </section>
+
+            <!-- ルール -->
+            <section>
+
+                <h2>
+                    🔎 ルールは簡単
+                </h2>
+
+                <p>
+                    0〜9の数字から作られた
+                    <strong>3桁の暗証コード</strong>
+                    を当ててください。
+                </p>
+
+                <p>
+                    同じ数字は使われません。
+                    <br>
+                    先頭が「0」の場合もあります。
+                </p>
+
+                <p>
+                    🎯 <strong>HIT</strong>
+                    <br>
+                    数字も位置も正解
+                </p>
+
+                <p>
+                    🔄 <strong>BLOW</strong>
+                    <br>
+                    数字は正解、位置が違う
+                </p>
+
+                <p>
+                    制限時間は<strong>5分</strong>。
+                    <br>
+                    挑戦できるのは<strong>10回まで</strong>。
+                </p>
+
+                <p>
+                    少ない回数で、
+                    <br>
+                    できるだけ早くCODEを解読しよう。
+                </p>
+
+            </section>
+
+            <!-- ゲーム開始 -->
+            <button
+                type="button"
+                id="game-start-button"
+            >
+                🔓 GAME START
+            </button>
+
+        </section>
+
+        <!-- =========================
+            ゲーム画面
+        ========================== -->
+        <section id="game-screen" hidden>
+
+            <header>
+
+                <p>
+                    NUMBER CODE GAME
+                </p>
+
+                <h2>
+                    🔐 CODEを解読せよ
+                </h2>
+
+            </header>
+
+
+            <!-- ゲーム情報 -->
+            <section id="game-status">
+
+                <div>
+                    <p>
+                        ⏱ TIME
+                    </p>
+
+                    <strong id="time-display">
+                        05:00
+                    </strong>
+                </div>
+
+                <div>
+                    <p>
+                        🔐 TRY
+                    </p>
+
+                    <strong id="try-display">
+                        0 / 10
+                    </strong>
+                </div>
+
+            </section>
+
+
+            <!-- 数字入力 -->
+            <section id="code-input-area">
+
+                <p>
+                    3桁のCODEを入力
+                </p>
+
+                <div id="code-display">
+
+                    <span class="code-digit">
+                        -
+                    </span>
+
+                    <span class="code-digit">
+                        -
+                    </span>
+
+                    <span class="code-digit">
+                        -
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- テンキー -->
+            <section id="number-keypad">
+
+                <button type="button" class="number-key" data-number="0">0</button>
+                <button type="button" class="number-key" data-number="1">1</button>
+                <button type="button" class="number-key" data-number="2">2</button>
+                <button type="button" class="number-key" data-number="3">3</button>
+
+                <button type="button" class="number-key" data-number="4">4</button>
+                <button type="button" class="number-key" data-number="5">5</button>
+                <button type="button" class="number-key" data-number="6">6</button>
+
+                <button type="button" class="number-key" data-number="7">7</button>
+                <button type="button" class="number-key" data-number="8">8</button>
+                <button type="button" class="number-key" data-number="9">9</button>
+
+                <button
+                    type="button"
+                    id="delete-button"
+                >
+                    ⌫
+                </button>
+
+                <button
+                    type="button"
+                    id="submit-button"
+                    disabled
+                >
+                    判定
+                </button>
+
+            </section>
+
+
+            <!-- 入力履歴 -->
+            <section id="history-area">
+
+                <h3>
+                    ANALYSIS LOG
+                </h3>
+
+                <div id="history-list">
+
+                    <p id="history-empty">
+                        まだ解析データはありません。
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+        <!-- =========================
+            結果画面
+        ========================== -->
+        <section id="result-screen" hidden>
+
+            <header>
+
+                <p>
+                    RESULT
+                </p>
+
+                <h2 id="result-title">
+                    🔓 CODE CRACKED!
+                </h2>
+
+                <p id="result-message">
+                    暗証コードの解読に成功しました。
+                </p>
+
+            </header>
+
+
+            <!-- 正解CODE -->
+            <section id="answer-area">
+
+                <p>
+                    SECRET CODE
+                </p>
+
+                <div id="answer-code">
+                    ---
+                </div>
+
+            </section>
+
+
+            <!-- プレイ結果 -->
+            <section id="result-stats">
+
+                <div>
+
+                    <p>
+                        🔐 TRY
+                    </p>
+
+                    <strong id="result-try">
+                        ---
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <p>
+                        ⏱ TIME LEFT
+                    </p>
+
+                    <strong id="result-time">
+                        --:--
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- スコア -->
+            <section id="score-area">
+
+                <p>
+                    SCORE
+                </p>
+
+                <div id="result-score">
+                    0
+                </div>
+
+            </section>
+
+
+            <!-- ランク -->
+            <section id="rank-area">
+
+                <p>
+                    RANK
+                </p>
+
+                <div id="result-rank">
+                    -
+                </div>
+
+                <p id="rank-message">
+                    ---
+                </p>
+
+            </section>
+
+
+            <!-- もう一度 -->
+            <button
+                type="button"
+                id="retry-button"
+            >
+                🔄 PLAY AGAIN
+            </button>
+
+            <button
+                type="button"
+                id="back-title-button"
+            >
+                🏠 TITLE
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="{% static 'game/js/game.js' %}"></script>
+
+</body>
+
+</html>
